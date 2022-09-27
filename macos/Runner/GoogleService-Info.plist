@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>170597384667-he7r8bh602moobor9fn8bev9kq7152gp.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.170597384667-he7r8bh602moobor9fn8bev9kq7152gp</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBEK6lECjcL7HOkIcJF3eAyN1_R3He2beU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>170597384667</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.zenly</string>
+	<key>PROJECT_ID</key>
+	<string>zenly-929f3</string>
+	<key>STORAGE_BUCKET</key>
+	<string>zenly-929f3.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:170597384667:ios:5ebb6facf7ec2ad0c1e7fe</string>
+</dict>
+</plist>
