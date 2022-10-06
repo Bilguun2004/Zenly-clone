@@ -3,26 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:zenly/pages/Login3.dart';
 
-import 'Login4.dart';
-
-class Login3 extends StatefulWidget {
-  const Login3({Key? key}) : super(key: key);
-  static String verifyId = "";
+class Login4 extends StatefulWidget {
+  const Login4({Key? key}) : super(key: key);
 
   @override
-  State<Login3> createState() => _Login3State();
+  State<Login4> createState() => _Login4State();
 }
 
-class _Login3State extends State<Login3> {
-  var data = Get.arguments;
-  var phone = '';
+class _Login4State extends State<Login4> {
   FirebaseAuth auth = FirebaseAuth.instance;
+  var data = Get.arguments;
   @override
   Widget build(BuildContext context) {
     var data = Get.arguments;
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    var verifyCode = "";
     return (Scaffold(
       body: Container(
         height: screenHeight,
@@ -35,7 +33,7 @@ class _Login3State extends State<Login3> {
               child: Column(children: [
                 Container(
                   child: Text(
-                    'Phone number',
+                    'Verify code',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w800,
@@ -49,7 +47,7 @@ class _Login3State extends State<Login3> {
                       child: SizedBox(
                     width: screenWidth * 0.5,
                     child: TextField(
-                      maxLength: 15,
+                      maxLength: 6,
                       keyboardType: TextInputType.phone,
                       style: TextStyle(
                           fontSize: 25,
@@ -57,11 +55,11 @@ class _Login3State extends State<Login3> {
                           fontWeight: FontWeight.w600),
                       decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: 'Your Phone',
+                          hintText: 'Verify code',
                           hintStyle: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w600)),
-                      onChanged: (value) => {phone = value, print(phone)},
+                      onChanged: (value) => {verifyCode = value},
                     ),
                   )),
                 ),
@@ -70,18 +68,25 @@ class _Login3State extends State<Login3> {
                     Container(width: screenWidth * 0.78),
                     GestureDetector(
                       onTap: () async {
-                        await FirebaseAuth.instance.verifyPhoneNumber(
-                          phoneNumber: phone,
-                          verificationCompleted:
-                              (PhoneAuthCredential credential) {},
-                          verificationFailed: (FirebaseAuthException e) {},
-                          codeSent: (String verificationId, int? resendToken) {
-                            Get.to(Login4(),
-                                transition: Transition.rightToLeft,
-                                arguments: [verificationId]);
-                          },
-                          codeAutoRetrievalTimeout: (String verificationId) {},
-                        );
+                        try {
+                          PhoneAuthCredential credential =
+                              PhoneAuthProvider.credential(
+                                  verificationId: data[0], smsCode: verifyCode);
+
+                          await auth.signInWithCredential(credential);
+                        } catch (e) {
+                          print(e);
+                          print('wrong code');
+                          print(data[0]);
+                        }
+                        ;
+                        // PhoneAuthCredential credential =
+                        //     PhoneAuthProvider.credential(
+                        //         verificationId: Login3.verifyId,
+                        //         smsCode: verifyCode);
+
+                        // // Sign the user in (or link) with the credential
+                        // await auth.signInWithCredential(credential);
                       },
                       child: Container(
                         height: 50,

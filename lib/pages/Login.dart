@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:zenly/pages/Login2.dart';
+import 'package:get/get.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class _LoginState extends State<Login> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     String userName = '';
+    TextEditingController nameController = TextEditingController();
     return (Scaffold(
       body: Container(
         height: screenHeight,
@@ -53,6 +55,7 @@ class _LoginState extends State<Login> {
                       child: SizedBox(
                     width: screenWidth * 0.5,
                     child: TextField(
+                      controller: nameController,
                       style: TextStyle(
                           fontSize: 25,
                           color: Colors.white,
@@ -64,7 +67,7 @@ class _LoginState extends State<Login> {
                               color: Colors.white,
                               fontWeight: FontWeight.w600)),
                       onChanged: (text) {
-                        userName == (text);
+                        userName = (text);
                       },
                     ),
                   )),
@@ -90,11 +93,9 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Login2()),
-                          );
+                          Get.to(Login2(),
+                              transition: Transition.rightToLeft,
+                              arguments: [nameController.text]);
                         })
                   ],
                 ),
