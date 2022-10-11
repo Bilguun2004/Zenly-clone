@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -23,6 +24,7 @@ class _Login3State extends State<Login3> {
     var data = Get.arguments;
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    final db = FirebaseFirestore.instance;
     return (Scaffold(
       body: Container(
         height: screenHeight,
@@ -70,15 +72,24 @@ class _Login3State extends State<Login3> {
                     Container(width: screenWidth * 0.78),
                     GestureDetector(
                       onTap: () async {
+                        final userData = <String, dynamic>{
+                          "UserName": data[0],
+                          "Birthdate": data[1],
+                          "Phone": phone,
+                        };
                         await FirebaseAuth.instance.verifyPhoneNumber(
                           phoneNumber: phone,
                           verificationCompleted:
-                              (PhoneAuthCredential credential) {},
+                              (PhoneAuthCredential credential) {
+                            db.collection("Users").add(userData).then(
+                                (DocumentReference doc) => print(
+                                    'DocumentSnapshot added with ID: ${doc.id}'));
+                          },
                           verificationFailed: (FirebaseAuthException e) {},
                           codeSent: (String verificationId, int? resendToken) {
                             Get.to(Login4(),
                                 transition: Transition.rightToLeft,
-                                arguments: [verificationId]);
+                                arguments: verificationId);
                           },
                           codeAutoRetrievalTimeout: (String verificationId) {},
                         );

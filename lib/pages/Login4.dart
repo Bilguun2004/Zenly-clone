@@ -71,13 +71,12 @@ class _Login4State extends State<Login4> {
                         try {
                           PhoneAuthCredential credential =
                               PhoneAuthProvider.credential(
-                                  verificationId: data[0], smsCode: verifyCode);
+                                  verificationId: data, smsCode: verifyCode);
 
                           await auth.signInWithCredential(credential);
                         } catch (e) {
                           print(e);
-                          print('wrong code');
-                          print(data[0]);
+                          print('verify id = $data');
                         }
                         ;
                         // PhoneAuthCredential credential =
